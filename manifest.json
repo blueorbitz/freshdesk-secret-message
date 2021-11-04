@@ -3,9 +3,13 @@
   "product": {
     "freshdesk": {
       "location": {
-        "ticket_sidebar": {
+        "full_page_app": {
           "url": "index.html",
-          "icon": "icon.svg"
+          "icon": "key_icon_light.svg"
+        },
+        "ticket_conversation_editor": {
+          "url": "secret.html",
+          "icon": "key_icon_dark.svg"
         }
       }
     }

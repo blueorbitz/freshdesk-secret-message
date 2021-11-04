@@ -9,3 +9,4 @@
 **/dist/**
 app/scripts
 log
+node_modules
