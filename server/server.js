@@ -1,3 +1,6 @@
+const yopass_api_url = 'https://api.yopass.se';
+const restdb_url = 'https://x6540support-2ecd.restdb.io/rest';
+
 exports = {
   encryptMessage: async function (args) {
     try {
@@ -6,6 +9,33 @@ exports = {
       await saveTransaction(data.yopassId, args);
 
       renderData(null, data);
+    } catch (err) {
+      console.error(err);
+      renderData(err);
+    }
+  },
+  restDbQuery: async function (args) {
+    const axios = require('axios');
+
+    const { method, tenant, dbId, iparams } = args;
+    const headers = {
+      'x-api-key': iparams.restdb_apikey,
+    };
+
+    try {
+      let response;
+      switch (method) {
+        case 'GET':
+          const query = `?q={"tenant": "${tenant}"}`;
+          response = await axios.get(restdb_url + '/fd-secrets' + query, { headers });
+          break;
+        case 'DELETE':
+          response = await axios.delete(restdb_url + '/fd-secrets/' + dbId, { headers });
+          break;
+        default:
+          throw new Error('Unsupport Method');
+      }
+      renderData(null, response.data);
     } catch (err) {
       console.error(err);
       renderData(err);
@@ -35,7 +65,7 @@ async function sendMessage(input) {
     one_time,
   };
 
-  const response = await axios.post('https://api.yopass.se/secret', data);
+  const response = await axios.post(yopass_api_url + '/secret', data);
   const yopassId = response.data.message;
   // const yopassId = decodeKey;
   console.log('Yopass.se:', yopassId);
@@ -51,7 +81,6 @@ async function saveTransaction(yopassId, input) {
   };
 
   const { tenant, email, ticketId, expiration, one_time } = input;
-  const restdb_url = 'https://x6540support-2ecd.restdb.io/rest';
   const response = await axios.post(restdb_url + '/fd-secrets', {
     tenant,
     yopassId,

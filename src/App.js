@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import HelloUser from './components/HelloUser'
+import ListingPage from './components/ListingPage'
 
 const App = () => {
 
@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     if (!loaded) return
     app.initialized().then((client) => {
-      setChild((<HelloUser client={client} />))
+      setChild((<ListingPage client={client} />))
     })
   }, [loaded])
 
