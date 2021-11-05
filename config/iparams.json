@@ -1,1 +1,8 @@
-{}
+{
+  "restdb_apikey": {
+    "display_name": "RestDB.io Apikey",
+    "type": "text",
+    "required": true,
+    "secure": true
+  }
+}

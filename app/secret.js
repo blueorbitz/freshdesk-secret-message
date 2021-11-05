@@ -4,13 +4,22 @@ document.addEventListener("DOMContentLoaded", () => {
     window.client = client;
     client.events.on('app.activated', () => {
 
-      document.getElementById("encrypt").addEventListener("click", () => {
+      document.getElementById("encrypt").addEventListener("click", async () => {
         const message = document.getElementById("message").value;
         const expiration = parseInt(document.getElementById("expiration").value);
         const one_time = document.getElementById("one_time").checked;
-        console.log(message, expiration, one_time);
+        const tenant = client.context.account.full_domain;
 
-        client.request.invoke('encryptMessage', { message, expiration, one_time })
+        const respUser = await client.data.get("loggedInUser");
+        const contact = respUser.loggedInUser.contact;
+
+        const respTicket = await client.data.get("ticket");
+        const ticket = respTicket.ticket;
+
+        // console.log(tenant, message, expiration, one_time);
+        // console.log(contact, ticket);
+
+        client.request.invoke('encryptMessage', { message, expiration, one_time, tenant, contact, ticket })
           .then(data => {
             console.log('invoke success', data);
             const { decodeKey, yopassId } = data.response;
@@ -32,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
             client.instance.close();
           })
           .catch(err => {
-            console.log('invoke fail', err);
+            console.error('invoke fail', err);
             client.interface.trigger("showNotify", {
               type: "danger",
               message: err.message
