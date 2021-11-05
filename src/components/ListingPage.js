@@ -79,7 +79,7 @@ const ListingPage = (props) => {
   const expiredAt = (createdAt, expiration) => {
     const date = new Date(createdAt);
     date.setSeconds(date.getSeconds() + expiration);
-    return date.toISOString();
+    return date;
   };
 
   return (
@@ -102,8 +102,8 @@ const ListingPage = (props) => {
               <DataCell><a href={`https://yopass.se/#/s/${yopassId}`}>{yopassId}</a></DataCell>
               <DataCell><a href={`https://${tenant}/a/tickets/${ticketId}`}>TicketId: {ticketId}</a></DataCell>
               <DataCell>{createdBy}</DataCell>
-              <DataCell>{createdAt}</DataCell>
-              <DataCell>{expiredAt(createdAt, expiration)}</DataCell>
+              <DataCell>{new Date(createdAt).toLocaleString()}</DataCell>
+              <DataCell>{expiredAt(createdAt, expiration).toLocaleString()}</DataCell>
               <ActionCell>
                 <fw-button size="icon" color="danger" onClick={() =>
                   confirmDelete(client, _id, yopassId)
