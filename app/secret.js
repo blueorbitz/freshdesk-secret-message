@@ -15,11 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const respTicket = await client.data.get("ticket");
         const ticket = respTicket.ticket;
+        
+        const email = contact.email;
+        const ticketId = ticket.id;
 
         // console.log(tenant, message, expiration, one_time);
         // console.log(contact, ticket);
 
-        client.request.invoke('encryptMessage', { message, expiration, one_time, tenant, contact, ticket })
+        client.request.invoke('encryptMessage', { message, expiration, one_time, tenant, email, ticketId })
           .then(data => {
             console.log('invoke success', data);
             const { decodeKey, yopassId } = data.response;

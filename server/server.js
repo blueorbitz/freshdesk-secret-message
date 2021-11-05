@@ -1,6 +1,7 @@
 exports = {
   encryptMessage: async function (args) {
     try {
+      console.log(args);
       const data = await sendMessage(args);
       await saveTransaction(data.yopassId, args);
 
@@ -34,28 +35,24 @@ async function sendMessage(input) {
     one_time,
   };
 
-  // const response = await axios.post('https://api.yopass.se/secret', data);
-  // const yopassId = response.data.message;
-  const yopassId = 'asdasdasdasd';
+  const response = await axios.post('https://api.yopass.se/secret', data);
+  const yopassId = response.data.message;
+  // const yopassId = decodeKey;
   console.log('Yopass.se:', yopassId);
 
   return { yopassId, decodeKey };
 }
 
 async function saveTransaction(yopassId, input) {
+  const iparams = input.iparams;
   const axios = require('axios');
-
   const headers = {
-    'x-api-key': '22a1890d7f35956264ff87337641350774cbc',
+    'x-api-key': iparams.restdb_apikey,
   };
 
-  const { tenant, contact, ticket, expiration, one_time } = input;
-  const email = contact.email;
-  const contactId = contact.id;
-  const ticketId = ticket.id;
-
-  const DB_HOST = 'https://x6540support-2ecd.restdb.io/rest'
-  const response = await axios.post(DB_HOST + '/fd-secrets', {
+  const { tenant, email, ticketId, expiration, one_time } = input;
+  const restdb_url = 'https://x6540support-2ecd.restdb.io/rest';
+  const response = await axios.post(restdb_url + '/fd-secrets', {
     tenant,
     yopassId,
     expiration,
