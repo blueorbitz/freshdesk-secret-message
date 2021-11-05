@@ -11,10 +11,20 @@
           "url": "secret.html",
           "icon": "key_icon_dark.svg"
         }
+      },
+      "functions": {
+        "encryptMessage": {
+          "timeout": 5
+        }
       }
     }
   },
-  "whitelisted-domains": [],
+  "dependencies": {
+    "axios": "0.24.0",
+    "openpgp": "5.0.0"
+  },
+  "whitelisted-domains": [
+  ],
   "engines": {
     "node": "12.22.7",
     "fdk": "7.1.0"
