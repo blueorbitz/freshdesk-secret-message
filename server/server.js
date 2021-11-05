@@ -7,7 +7,7 @@ exports = {
       const openpgp = require('openpgp');
 
       const { encrypt, createMessage } = openpgp;
-      const { message } = args;
+      const { message, expiration, one_time } = args;
 
       const decodeKey = Math.random().toString(36).substr(2, 6) + Math.random().toString(36).substr(2, 6);
       console.log('Generated Key', decodeKey);
@@ -19,13 +19,14 @@ exports = {
       console.log(encryptMessage);
 
       const data = {
-        expiration: 3600,
+        expiration,
         message: encryptMessage,
-        one_time: true,
+        one_time,
       };
 
-      const response = await axios.post('https://api.yopass.se/secret', data);
-      const yopassId = response.data.message;
+      // const response = await axios.post('https://api.yopass.se/secret', data);
+      // const yopassId = response.data.message;
+      const yopassId = "asdasdasdasd";
       console.log('Yopass.se:', yopassId);
 
       renderData(null, { yopassId, decodeKey });
