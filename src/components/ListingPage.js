@@ -25,6 +25,12 @@ const DataCell = styled.td`
   padding: 10px;
 `;
 
+const ExpiredDataCell = styled.td`
+  border-bottom: 1px solid #aaa;
+  color: #ff1c1c;
+  padding: 10px;
+`;
+
 const ActionCell = styled.td`
   border-bottom: 1px solid #aaa;
 `;
@@ -82,6 +88,10 @@ const ListingPage = (props) => {
     return date;
   };
 
+  const hasExpired = (expired) => {
+    return expired.getTime() < new Date().getTime();
+  };
+
   return (
     <React.Fragment>
       <Title>Secret Messsage</Title>
@@ -103,7 +113,10 @@ const ListingPage = (props) => {
               <DataCell><a href={`https://${tenant}/a/tickets/${ticketId}`}>TicketId: {ticketId}</a></DataCell>
               <DataCell>{createdBy}</DataCell>
               <DataCell>{new Date(createdAt).toLocaleString()}</DataCell>
-              <DataCell>{expiredAt(createdAt, expiration).toLocaleString()}</DataCell>
+              {hasExpired(expiredAt(createdAt, expiration))
+                ? <ExpiredDataCell>{expiredAt(createdAt, expiration).toLocaleString()}</ExpiredDataCell>
+                : <DataCell>{expiredAt(createdAt, expiration).toLocaleString()}</DataCell>
+              }
               <ActionCell>
                 <fw-button size="icon" color="danger" onClick={() =>
                   confirmDelete(client, _id, yopassId)
