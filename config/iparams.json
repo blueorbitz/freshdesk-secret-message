@@ -1,4 +1,9 @@
 {
+  "restdb_url": {
+    "display_name": "RestDB.io database url",
+    "type": "text",
+    "required": true
+  },
   "restdb_apikey": {
     "display_name": "RestDB.io Apikey",
     "type": "text",

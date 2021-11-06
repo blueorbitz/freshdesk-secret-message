@@ -1,5 +1,4 @@
 const yopass_api_url = 'https://api.yopass.se';
-const restdb_url = 'https://x6540support-2ecd.restdb.io/rest';
 
 exports = {
   encryptMessage: async function (args) {
@@ -18,6 +17,7 @@ exports = {
     const axios = require('axios');
 
     const { method, tenant, dbId, iparams } = args;
+    const restdb_url = iparams.restdb_url + '/rest';
     const headers = {
       'x-api-key': iparams.restdb_apikey,
     };
@@ -76,6 +76,7 @@ async function sendMessage(input) {
 async function saveTransaction(yopassId, input) {
   const iparams = input.iparams;
   const axios = require('axios');
+  const restdb_url = iparams.restdb_url + '/rest';
   const headers = {
     'x-api-key': iparams.restdb_apikey,
   };
