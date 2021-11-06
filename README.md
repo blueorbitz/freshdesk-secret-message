@@ -35,10 +35,8 @@ Next, we leverage existing encryption technology [OpenPGP](https://openpgpjs.org
 
 ## What's next for Freshdesk Secret Message
 
-There is some minor improvement that could be done in the data structure design used for restdb.io. For example, separation of concern for multi-tenant implementation, which allows the user to have to store it in their own DB.
-
-Besides the secret message, we could also expand this into implementing attachments so that documentation can be shared in a secure manner.
-
-That aside, the workaround hack works well and is also good for production use. Of course, if the technology improves, we could revise on making an improved version of this app. Eg. dynamically rendered secret component within the conversation thread. And, porting the database to using Freshdesk's database.
-
-Also, nice to have is to allow to add a plugin on the customer's side conversation editor view. So that they too can add secret messages and provide more information that is contained within the system.
+- There is some minor improvement that could be done in the data structure design used for restdb.io. For example, separation of concern for multi-tenant implementation, which allows the user to have to store it in their own DB.
+- Implement permission control to the listing page.
+- Besides the secret message, we could also expand this into implementing attachments so that documentation can be shared in a secure manner.
+- That aside, the workaround hack works well and is also good for production use. Of course, if the technology improves, we could revise on making an improved version of this app. Eg. dynamically rendered secret component within the conversation thread. And, porting the database to using Freshdesk's database.
+- Also, nice to have is to allow to add a plugin on the customer's side conversation editor view. So that they too can add secret messages and provide more information that is contained within the system.
